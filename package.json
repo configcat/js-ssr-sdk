@@ -5,10 +5,10 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-      "test": "karma start",
-      "build": "tsc",
-      "buildPure": "webpack",
-      "prepare": "npm run build"
+    "test": "karma start",
+    "build": "tsc",
+    "buildPure": "webpack",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "url": "https://github.com/configcat/nuxt-sdk/issues"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "configcat-common": "^2.4.2"
   },
   "devDependencies": {
