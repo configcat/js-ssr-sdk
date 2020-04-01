@@ -13,9 +13,8 @@ export class HttpConfigFetcher implements IConfigFetcher {
             timeout: options.requestTimeoutMs,
             url: options.getUrl(),
             headers: {
-                'User-Agent': `ConfigCat-JS-SSR/${options.clientVersion}`,
                 'X-ConfigCat-UserAgent': `ConfigCat-JS-SSR/${options.clientVersion}`,
-                'If-None-Match': lastProjectConfig ? lastProjectConfig.HttpETag : null
+                'If-None-Match': (lastProjectConfig && lastProjectConfig.HttpETag) ? lastProjectConfig.HttpETag : null
             }
         };
 
