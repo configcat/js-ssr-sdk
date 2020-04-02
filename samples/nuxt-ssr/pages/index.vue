@@ -22,7 +22,7 @@ import * as ConfiCat from "configcat-js-ssr";
 
 const client = ConfiCat.createClientWithAutoPoll(
   "7ZTVCKnUJprikI6Rwlj0RA/eJ8H21HZA06fDJrnzWyvGA",
-  { pollIntervalSeconds: 2 }
+  { pollIntervalSeconds: 5 }
 );
 const value = false;
 
