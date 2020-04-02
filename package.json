@@ -1,6 +1,6 @@
 {
   "name": "configcat-nuxt",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "description": "ConfigCat Feature Flags for NuxtJS. Official ConfigCat SDK for NuxtJS to easily access feature flags.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
