@@ -1,4 +1,4 @@
-# ConfigCat SDK for JavaScript frontend applications
+# ConfigCat SDK for JavaScript Server Side Rendered applications
 https://configcat.com
 
 ConfigCat SDK for Server Side Rendered apps provides easy integration with ConfigCat feature flags.
