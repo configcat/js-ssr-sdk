@@ -1,4 +1,4 @@
-#Run this script to update configcat-common to the latest and release a new version of configcat-nuxt
+#Run this script to update configcat-common to the latest and release a new version of configcat-js-ssr
 set -e #Making sure script stops on error
 npm i configcat-common@latest
 npm test

@@ -4,11 +4,11 @@
 
 1. Run `./deploy.sh`
 
-1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-nuxt
+1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-ssr
 
 1. Add release notes: https://github.com/configcat/nuxt-sdk/releases
 
-2. Update `configcat-nuxt` dependency in all sample applications:
+2. Update `configcat-js-ssr` dependency in all sample applications:
    And test them by following their `README.md`.
 
 or
@@ -37,9 +37,9 @@ Increase version number by using `npm version patch | minor | major`
 
     You can follow the build status here -> https://travis-ci.com/configcat/nuxt-sdk
 
-1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-nuxt
+1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-ssr
 
 1. Add release notes: https://github.com/configcat/nuxt-sdk/releases
 
-2. Update `configcat-nuxt` dependency in all sample applications:
+2. Update `configcat-js-ssr` dependency in all sample applications:
    And test them by following their `README.md`.
