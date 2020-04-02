@@ -35,11 +35,11 @@ Increase version number by using `npm version patch | minor | major`
     ```
     *Example: git push origin v1.1.17*
 
-    You can follow the build status here -> https://travis-ci.com/configcat/nuxt-sdk
+    You can follow the build status here -> https://travis-ci.com/configcat/js-ssr-sdk
 
 1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-ssr
 
-1. Add release notes: https://github.com/configcat/nuxt-sdk/releases
+1. Add release notes: https://github.com/configcat/js-ssr-sdk/releases
 
 2. Update `configcat-js-ssr` dependency in all sample applications:
    And test them by following their `README.md`.
