@@ -20,12 +20,9 @@ export class HttpConfigFetcher implements IConfigFetcher {
 
         axios(axiosConfig)
             .then(response => {
-                const eTag = response.headers['ETag'];
+                const eTag = response.headers.etag as string;
                 if (response.status === 200) {
                     callback(new ProjectConfig(new Date().getTime(), JSON.stringify(response.data), eTag));
-
-                } else if (response.status === 304) {
-                    callback(new ProjectConfig(new Date().getTime(), JSON.stringify(lastProjectConfig.ConfigJSON), eTag));
                 } else {
                     options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${response.status} - ${response.statusText}`);
                     options.logger.info("Double-check your API KEY on https://app.configcat.com/apikey");
@@ -35,12 +32,13 @@ export class HttpConfigFetcher implements IConfigFetcher {
             .catch(error => {
                 if (error.response) {
                     if (error.response.status === 304) {
-                        const eTag = error.response.headers['ETag'];
+                        const eTag = error.response.headers.etag as string;
                         callback(new ProjectConfig(new Date().getTime(), JSON.stringify(lastProjectConfig.ConfigJSON), eTag));
+                    } else {
+                        options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${error.response.status} - ${error.response.statusText}`);
+                        options.logger.info("Double-check your API KEY on https://app.configcat.com/apikey");
+                        callback(lastProjectConfig);
                     }
-                    options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${error.response.status} - ${error.response.statusText}`);
-                    options.logger.info("Double-check your API KEY on https://app.configcat.com/apikey");
-                    callback(lastProjectConfig);
                 } else if (error.request) {
                     options.logger.error('The request to Configcat was made but no response was received');
                     callback(lastProjectConfig);
