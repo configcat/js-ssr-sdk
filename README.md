@@ -26,12 +26,12 @@ npm i configcat-js-ssr
 import * as configcat from "configcat-js-ssr";
 ```
 
-### 2. Go to the <a href="https://app.configcat.com/apikey" target="_blank">Dashboard</a> to get your *API Key*:
-![API-KEY](https://raw.githubusercontent.com/ConfigCat/js-sdk/master/media/readme01.png  "API-KEY")
+### 2. Go to the <a href="https://app.configcat.com/sdkkey" target="_blank">Dashboard</a> to get your *API Key*:
+![API-KEY](https://raw.githubusercontent.com/ConfigCat/js-ssr-sdk/master/media/readme01.png  "API-KEY")
 
 ### 3. Create a *ConfigCat* client instance:
 ```js
-var configCatClient = configcat.createClient("#YOUR-API-KEY#");
+var configCatClient = configcat.createClient("#YOUR-SDK-KEY#");
 ```
 > We strongly recommend using the *ConfigCat Client* as a Singleton object in your application.
 
@@ -61,7 +61,7 @@ configCatClient.getValue("isMyAwesomeFeatureEnabled", false, (value) => {
 ## Getting user specific setting values with Targeting
 Using this feature, you will be able to get different setting values for different users in your application by passing a `User Object` to `getValue()` or `getValueAsync()`.
 
-Read more about [Targeting here](https://docs.configcat.com/docs/advanced/targeting/).
+Read more about [Targeting here](https://configcat.com/docs/advanced/targeting/).
 ```js
 const userObject = { identifier : "#USER-IDENTIFIER#" };
 configCatClient.getValueAsync("isMyAwesomeFeatureEnabled", false, userObject)
@@ -78,7 +78,7 @@ configCatClient.getValueAsync("isMyAwesomeFeatureEnabled", false, userObject)
   - [NuxtJS](https://github.com/configcat/js-ssr-sdk/tree/master/samples/nuxtjs-ssr)
 
 ## Polling Modes
-The ConfigCat SDK supports 3 different polling mechanisms to acquire the setting values from ConfigCat. After latest setting values are downloaded, they are stored in the internal cache then all requests are served from there. Read more about Polling Modes and how to use them at [ConfigCat Docs](https://docs.configcat.com/docs/sdk-reference/js-ssr).
+The ConfigCat SDK supports 3 different polling mechanisms to acquire the setting values from ConfigCat. After latest setting values are downloaded, they are stored in the internal cache then all requests are served from there. Read more about Polling Modes and how to use them at [ConfigCat Docs](https://configcat.com/docs/sdk-reference/js-ssr).
 
 ## Support
 If you need help how to use this SDK feel free to to contact the ConfigCat Staff on https://configcat.com. We're happy to help.
@@ -88,5 +88,5 @@ Contributions are welcome.
 
 ## About ConfigCat
 - [Official ConfigCat SDK's for other platforms](https://github.com/configcat)
-- [Documentation](https://docs.configcat.com)
+- [Documentation](https://configcat.com/docs)
 - [Blog](https://blog.configcat.com)

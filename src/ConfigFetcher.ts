@@ -25,7 +25,7 @@ export class HttpConfigFetcher implements IConfigFetcher {
                     callback(new ProjectConfig(new Date().getTime(), JSON.stringify(response.data), eTag));
                 } else {
                     options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${response.status} - ${response.statusText}`);
-                    options.logger.info("Double-check your API KEY on https://app.configcat.com/apikey");
+                    options.logger.info("Double-check your SDK Key on https://app.configcat.com/sdkkey");
                     callback(lastProjectConfig);
                 }
             })
@@ -36,7 +36,7 @@ export class HttpConfigFetcher implements IConfigFetcher {
                         callback(new ProjectConfig(new Date().getTime(), JSON.stringify(lastProjectConfig.ConfigJSON), eTag));
                     } else {
                         options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${error.response.status} - ${error.response.statusText}`);
-                        options.logger.info("Double-check your API KEY on https://app.configcat.com/apikey");
+                        options.logger.info("Double-check your SDK Key on https://app.configcat.com/sdkkey");
                         callback(lastProjectConfig);
                     }
                 } else if (error.request) {
