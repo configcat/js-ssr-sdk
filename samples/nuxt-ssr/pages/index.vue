@@ -20,10 +20,15 @@ import Vue from "vue";
 import Logo from "~/components/Logo.vue";
 import * as ConfiCat from "configcat-js-ssr";
 
+// Setting log level to 3 (= Info) to show detailed feature flag evaluation
+const logger = ConfiCat.createConsoleLogger(3);
+
+// You can instantiate the client with different polling modes. See the Docs: https://configcat.com/docs/sdk-reference/js-ssr/#polling-modes
 const client = ConfiCat.createClientWithAutoPoll(
-  "7ZTVCKnUJprikI6Rwlj0RA/eJ8H21HZA06fDJrnzWyvGA",
-  { pollIntervalSeconds: 5 }
+  "PKDVCLf-Hq-h-kCzMp-L7Q/HhOWfwVtZ0mb30i9wi17GQ",
+  { pollIntervalSeconds: 5, logger: logger }
 );
+
 const value = false;
 
 export default Vue.extend({
@@ -37,15 +42,25 @@ export default Vue.extend({
     };
   },
   methods: {
-    checkAwesome () {
+    checkAwesome() {
       client.getValue("isAwesomeFeatureEnabled", false, value => {
-        this.isAwesomeFeatureEnabled = value
+        this.isAwesomeFeatureEnabled = value;
       });
     },
-    checkPOC () {
-      client.getValue("isPOCFeatureEnabled", false, value => {
-        this.isPOCFeatureEnabled = value
-      });
+    checkPOC() {
+      // Read more about the User Object: https://configcat.com/docs/sdk-reference/node/#user-object
+      const userObject = {
+        identifier: "#SOME-USER-ID#",
+        email: "configcat@example.com"
+      };
+      client.getValue(
+        "isPOCFeatureEnabled",
+        false,
+        value => {
+          this.isPOCFeatureEnabled = value;
+        },
+        userObject
+      );
     }
   }
 });
