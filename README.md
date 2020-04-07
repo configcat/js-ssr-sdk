@@ -29,11 +29,6 @@ npm i configcat-js-ssr
 import * as configcat from "configcat-js-ssr";
 ```
 
-*via CDN:*
-```html
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/configcat-js-ssr@latest/dist/configcat.min.js"></script>
-```
-
 ### 2. Go to the <a href="https://app.configcat.com/apikey" target="_blank">Dashboard</a> to get your *API Key*:
 ![API-KEY](https://raw.githubusercontent.com/ConfigCat/js-sdk/master/media/readme01.png  "API-KEY")
 
