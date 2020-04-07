@@ -75,7 +75,7 @@ configCatClient.getValueAsync("isMyAwesomeFeatureEnabled", false, userObject)
 ```
 
 ## Sample/Demo apps
-  - [NuxtJS](https://github.com/configcat/js-ssr-sdk/tree/master/samples/nuxtjs-ssr)
+  - [NuxtJS](https://github.com/configcat/js-ssr-sdk/tree/master/samples/nuxt-ssr)
 
 ## Polling Modes
 The ConfigCat SDK supports 3 different polling mechanisms to acquire the setting values from ConfigCat. After latest setting values are downloaded, they are stored in the internal cache then all requests are served from there. Read more about Polling Modes and how to use them at [ConfigCat Docs](https://configcat.com/docs/sdk-reference/js-ssr).
