@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <logo />
-      <h2 class="subtitle">ConfigCat NuxtJs Sample App</h2>
+      <h2 class="subtitle">ConfigCat NuxtJS Sample App</h2>
       <div>
         <button v-on:click="checkAwesome" class="button--green">Check Awesome Feature</button>
         <p>{{isAwesomeFeatureEnabled}}</p>
