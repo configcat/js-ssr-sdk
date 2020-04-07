@@ -16,9 +16,6 @@ ConfigCat is a <a href="https://configcat.com" target="_blank">hosted feature fl
 
 ## Getting Started
 
-> For SSR (Server-Side Rendering) Universal applications use [configcat-node](https://github.com/configcat/node-sdk) SDK.
-
-
 ### 1. Install and import package:
 
 *via NPM [package](https://npmjs.com/package/configcat-js-ssr):*
@@ -78,12 +75,10 @@ configCatClient.getValueAsync("isMyAwesomeFeatureEnabled", false, userObject)
 ```
 
 ## Sample/Demo apps
-  - [Angular 2+](https://github.com/configcat/js-sdk/tree/master/samples/angular-sample)
-  - [React](https://github.com/configcat/js-sdk/tree/master/samples/react-sample)
-  - [Pure HTML + JS](https://github.com/configcat/js-sdk/tree/master/samples/html)
+  - [NuxtJS](https://github.com/configcat/js-ssr-sdk/tree/master/samples/nuxtjs-ssr)
 
 ## Polling Modes
-The ConfigCat SDK supports 3 different polling mechanisms to acquire the setting values from ConfigCat. After latest setting values are downloaded, they are stored in the internal cache then all requests are served from there. Read more about Polling Modes and how to use them at [ConfigCat Docs](https://docs.configcat.com/docs/sdk-reference/js/).
+The ConfigCat SDK supports 3 different polling mechanisms to acquire the setting values from ConfigCat. After latest setting values are downloaded, they are stored in the internal cache then all requests are served from there. Read more about Polling Modes and how to use them at [ConfigCat Docs](https://docs.configcat.com/docs/sdk-reference/js-ssr).
 
 ## Support
 If you need help how to use this SDK feel free to to contact the ConfigCat Staff on https://configcat.com. We're happy to help.
