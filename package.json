@@ -39,7 +39,7 @@
     "url": "https://github.com/configcat/nuxt-sdk/issues"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "configcat-common": "^2.5.1"
   },
   "devDependencies": {
