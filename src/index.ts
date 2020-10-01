@@ -52,3 +52,5 @@ export interface IJSLazyLoadingOptions extends configcatcommon.ILazyLoadingOptio
 
 export interface IJSManualPollOptions extends configcatcommon.IManualPollOptions {
 }
+
+export type DataGovernance = configcatcommon.DataGovernance;
