@@ -4,10 +4,13 @@ import { IConfigCatClient } from "configcat-common/lib/ConfigCatClient";
 import { LocalStorageCache } from "./Cache";
 import { LogLevel } from "configcat-common/lib/index";
 
-/** Create an instance of ConfigCatClient and setup Auto polling with default options.*/
-export function createClient(sdkKey: string, dataGovernance?: DataGovernance): IConfigCatClient {
+/** Create an instance of ConfigCatClient and setup Auto polling with default options.
+ * @param {string} sdkKey - SDK Key to access your configuration.
+ * @param options - Options for Auto polling
+*/
+export function createClient(sdkKey: string, options?: IJSAutoPollOptions): IConfigCatClient {
 
-    return this.createClientWithAutoPoll(sdkKey, { dataGovernance });
+    return this.createClientWithAutoPoll(sdkKey, options);
 }
 
 /**
