@@ -7,10 +7,10 @@ ConfigCat is a feature flag and configuration management service that lets you s
 
 ConfigCat is a <a href="https://configcat.com" target="_blank">hosted feature flag service</a>. Manage feature toggles across frontend, backend, mobile, desktop apps. <a href="https://configcat.com" target="_blank">Alternative to LaunchDarkly</a>. Management app + feature flag SDKs.
 
-[![Build Status](https://travis-ci.com/configcat/js-sdk.svg?branch=master)](https://travis-ci.com/configcat/js-sdk) 
-[![codecov](https://codecov.io/gh/configcat/js-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/configcat/js-sdk) 
-[![Known Vulnerabilities](https://snyk.io/test/github/configcat/js-sdk/badge.svg?targetFile=package.json)](https://snyk.io/test/github/configcat/js-sdk?targetFile=package.json) 
-![License](https://img.shields.io/github/license/configcat/js-sdk.svg) 
+[![Build Status](https://travis-ci.com/configcat/js-ssr-sdk.svg?branch=master)](https://travis-ci.com/configcat/js-ssr-sdk) 
+[![codecov](https://codecov.io/gh/configcat/js-ssr-sdk/branch/master/graph/badge.svg)](https://codecov.io/gh/configcat/js-ssr-sdk) 
+[![Known Vulnerabilities](https://snyk.io/test/github/configcat/js-ssr-sdk/badge.svg?targetFile=package.json)](https://snyk.io/test/github/configcat/js-ssr-sdk?targetFile=package.json) 
+![License](https://img.shields.io/github/license/configcat/js-ssr-sdk.svg) 
 [![](https://data.jsdelivr.com/v1/package/npm/configcat-js-ssr/badge)](https://www.jsdelivr.com/package/npm/configcat-js-ssr)
 [![NPM](https://nodei.co/npm/configcat-js-ssr.png)](https://nodei.co/npm/configcat-js-ssr/)
 
