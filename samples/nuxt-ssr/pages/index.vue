@@ -20,14 +20,14 @@
 <script lang="ts">
 import Vue from "vue";
 import Logo from "~/components/Logo.vue";
-import * as ConfiCat from "configcat-js-ssr";
+import * as ConfigCat from "configcat-js-ssr";
 import { log } from "util";
 
 // Setting log level to 3 (= Info) to show detailed feature flag evaluation
-const logger = ConfiCat.createConsoleLogger(3);
+const logger = ConfigCat.createConsoleLogger(3);
 
 // You can instantiate the client with different polling modes. See the Docs: https://configcat.com/docs/sdk-reference/js-ssr/#polling-modes
-const client = ConfiCat.createClientWithAutoPoll(
+const client = ConfigCat.createClientWithAutoPoll(
   "PKDVCLf-Hq-h-kCzMp-L7Q/HhOWfwVtZ0mb30i9wi17GQ",
   { pollIntervalSeconds: 5, logger: logger }
 );
