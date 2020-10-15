@@ -188,7 +188,9 @@ describe("Integration - ConfigCatClient", () => {
   it("Auto poll with wrong SDK Key - getValue() should return default value", (done) => {
 
     const defaultValue: string = "NOT_CAT";
-    let client: IConfigCatClient = configcatClient.createClientWithAutoPoll("WRONG_SDK_KEY", { requestTimeoutMs: 500 });
+    let client: IConfigCatClient = configcatClient.createClientWithAutoPoll(
+      "WRONG_SDK_KEY",
+      { requestTimeoutMs: 500, maxInitWaitTimeSeconds: 1 });
 
     client.getValue("stringDefaultCat", defaultValue, actual => {
 
@@ -201,7 +203,9 @@ describe("Integration - ConfigCatClient", () => {
   it("Auto poll with wrong SDK Key - getValueAsync() should return default value", async () => {
 
     const defaultValue: string = "NOT_CAT";
-    let client: IConfigCatClient = configcatClient.createClientWithAutoPoll("WRONG_SDK_KEY", { requestTimeoutMs: 500 });
+    let client: IConfigCatClient = configcatClient.createClientWithAutoPoll(
+      "WRONG_SDK_KEY",
+      { requestTimeoutMs: 500, maxInitWaitTimeSeconds: 1 });
 
     const actual = await client.getValueAsync("stringDefaultCat", defaultValue);
     assert.strictEqual(actual, defaultValue);

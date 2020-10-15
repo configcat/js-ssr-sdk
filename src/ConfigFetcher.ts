@@ -1,6 +1,4 @@
-import { IConfigFetcher } from "configcat-common";
-import { ProjectConfig } from "configcat-common/lib/ProjectConfig";
-import { OptionsBase } from "configcat-common/lib/ConfigCatClientOptions";
+import { IConfigFetcher, ProjectConfig, OptionsBase } from "configcat-common";
 import axios, { AxiosRequestConfig } from 'axios';
 
 
