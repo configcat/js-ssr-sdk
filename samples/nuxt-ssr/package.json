@@ -13,7 +13,7 @@
   "dependencies": {
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0",
-    "configcat-js-ssr": "^3.3.2",
+    "configcat-js-ssr": "^3.4.1",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {}
