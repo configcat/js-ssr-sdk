@@ -18,3 +18,4 @@ test/
 DEPLOY.md
 karma.conf.js
 webpack.config.js
+.github/
