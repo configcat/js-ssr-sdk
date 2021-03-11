@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "configcat-common": "^4.4.0"
+    "configcat-common": "^4.4.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.4",
