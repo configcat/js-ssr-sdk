@@ -27,7 +27,7 @@ import * as configcat from "configcat-js-ssr";
 ```
 
 ### 2. Go to the <a href="https://app.configcat.com/sdkkey" target="_blank">Dashboard</a> to get your *API Key*:
-![API-KEY](https://raw.githubusercontent.com/ConfigCat/js-ssr-sdk/master/media/readme01.png  "API-KEY")
+![API-KEY](https://raw.githubusercontent.com/ConfigCat/js-ssr-sdk/master/media/readme02-2.png  "API-KEY")
 
 ### 3. Create a *ConfigCat* client instance:
 ```js
