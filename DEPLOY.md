@@ -2,7 +2,7 @@
 
 ## Before deployment
 
-Make sure the CI is running: https://github.com/configcat/js-ssr-sdk/actions
+Make sure the CI is running: https://github.com/configcat/js-ssr-sdk/actions/workflows/js-ssr-ci.yml
 
 ## Via shell script
 
