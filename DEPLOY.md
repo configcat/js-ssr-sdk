@@ -1,5 +1,9 @@
 # How to deploy
 
+## Before deployment
+
+Make sure the CI is running: https://github.com/configcat/js-ssr-sdk/actions/workflows/js-ssr-ci.yml
+
 ## Via shell script
 
 1. Run `./deploy.sh`
