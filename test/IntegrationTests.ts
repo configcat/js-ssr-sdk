@@ -8,11 +8,25 @@ describe("Integration - ConfigCatClient", () => {
 
   let sdkKey: string = "PKDVCLf-Hq-h-kCzMp-L7Q/psuH7BGHoUmdONrzzUOY7A";
 
+  let clientDefault: IConfigCatClient = configcatClient.createClient(sdkKey);
+
   let clientAutoPoll: IConfigCatClient = configcatClient.createClientWithAutoPoll(sdkKey);
 
   let clientManualPoll: IConfigCatClient = configcatClient.createClientWithManualPoll(sdkKey);
 
   let clientLazyLoad: IConfigCatClient = configcatClient.createClientWithLazyLoad(sdkKey);
+
+  
+  it("Default - getValue() with key: 'stringDefaultCat' should return 'Cat'", (done) => {
+
+    const defaultValue: string = "NOT_CAT";
+
+    clientDefault.getValue("stringDefaultCat", defaultValue, actual => {
+      assert.strictEqual(actual, "Cat");
+      assert.notStrictEqual(actual, defaultValue);
+      done();
+    });
+  });
 
   it("Auto poll - getValue() with key: 'stringDefaultCat' should return 'Cat'", (done) => {
 

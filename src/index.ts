@@ -9,7 +9,7 @@ import { LocalStorageCache } from "./Cache";
  */
 export function createClient(sdkKey: string, options?: IJSAutoPollOptions): IConfigCatClient {
 
-    return this.createClientWithAutoPoll(sdkKey, options);
+    return createClientWithAutoPoll(sdkKey, options);
 }
 
 /**
