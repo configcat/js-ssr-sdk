@@ -1,10 +1,10 @@
-import { IConfigFetcher, ProjectConfig, OptionsBase } from "configcat-common";
+import { IConfigFetcher, ProjectConfig, OptionsBase, FetchResult } from "configcat-common";
 import axios, { AxiosRequestConfig } from 'axios';
 
 
 export class HttpConfigFetcher implements IConfigFetcher {
 
-    fetchLogic(options: OptionsBase, lastProjectConfig: ProjectConfig, callback: (newProjectConfig: ProjectConfig) => void): void {
+    fetchLogic(options: OptionsBase, lastEtag: string, callback: (result: FetchResult) => void): void {
 
         const axiosConfig: AxiosRequestConfig = {
             method: 'get',
@@ -12,7 +12,7 @@ export class HttpConfigFetcher implements IConfigFetcher {
             url: options.getUrl(),
             headers: {
                 'X-ConfigCat-UserAgent': `ConfigCat-JS-SSR/${options.clientVersion}`,
-                'If-None-Match': (lastProjectConfig && lastProjectConfig.HttpETag) ? lastProjectConfig.HttpETag : null
+                'If-None-Match': (lastEtag) ? lastEtag : null
             }
         };
 
@@ -20,29 +20,28 @@ export class HttpConfigFetcher implements IConfigFetcher {
             .then(response => {
                 const eTag = response.headers.etag as string;
                 if (response.status === 200) {
-                    callback(new ProjectConfig(new Date().getTime(), JSON.stringify(response.data), eTag));
+                    callback(FetchResult.success(JSON.stringify(response.data), eTag));
                 } else {
                     options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${response.status} - ${response.statusText}`);
                     options.logger.info("Double-check your SDK Key on https://app.configcat.com/sdkkey");
-                    callback(lastProjectConfig);
+                    callback(FetchResult.error());
                 }
             })
             .catch(error => {
                 if (error.response) {
                     if (error.response.status === 304) {
-                        const eTag = error.response.headers.etag as string;
-                        callback(new ProjectConfig(new Date().getTime(), JSON.stringify(lastProjectConfig.ConfigJSON), eTag));
+                        callback(FetchResult.notModified());
                     } else {
                         options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${error.response.status} - ${error.response.statusText}`);
                         options.logger.info("Double-check your SDK Key on https://app.configcat.com/sdkkey");
-                        callback(lastProjectConfig);
+                        callback(FetchResult.error());
                     }
                 } else if (error.request) {
                     options.logger.error('The request to Configcat was made but no response was received');
-                    callback(lastProjectConfig);
+                    callback(FetchResult.error());
                 } else {
                     options.logger.error(`Something happened in setting up the request to ConfigCat: ${error.message}`);
-                    callback(lastProjectConfig);
+                    callback(FetchResult.error());
                 }
             });
     }
