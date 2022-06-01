@@ -25,15 +25,6 @@ module.exports = function(config) {
 
         browsers: ["ChromeHeadless"],
 
-        singleRun: true,
-        
-        karmaTypescriptConfig: {
-            tsconfig: "./tsconfig.karma.json",            
-            bundlerOptions: {
-                transforms: [
-                    require("karma-typescript-es6-transform")()
-                ]
-            }
-        }        
+        singleRun: true
     });
 };
