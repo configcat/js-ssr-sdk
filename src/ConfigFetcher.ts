@@ -1,19 +1,15 @@
-import { IConfigFetcher, ProjectConfig, OptionsBase, FetchResult } from "configcat-common";
+import { IConfigFetcher, OptionsBase, FetchResult } from "configcat-common";
 import axios, { AxiosRequestConfig } from 'axios';
 
 
 export class HttpConfigFetcher implements IConfigFetcher {
 
-    fetchLogic(options: OptionsBase, lastEtag: string, callback: (result: FetchResult) => void): void {
+    fetchLogic(options: OptionsBase, _lastEtag: string, callback: (result: FetchResult) => void): void {
 
         const axiosConfig: AxiosRequestConfig = {
             method: 'get',
             timeout: options.requestTimeoutMs,
             url: options.getUrl(),
-            headers: {
-                'X-ConfigCat-UserAgent': options.clientVersion,
-                'If-None-Match': (lastEtag) ? lastEtag : null
-            }
         };
 
         axios(axiosConfig)
