@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 export class HttpConfigFetcher implements IConfigFetcher {
 
-    fetchLogic(options: OptionsBase, lastEtag: string, callback: (result: FetchResult) => void): void {
+    fetchLogic(options: OptionsBase, _lastEtag: string, callback: (result: FetchResult) => void): void {
 
         const axiosConfig: AxiosRequestConfig = {
             method: 'get',
