@@ -1,15 +1,19 @@
-import { IConfigFetcher, OptionsBase, FetchResult } from "configcat-common";
 import axios, { AxiosRequestConfig } from 'axios';
-
+import { FetchResult, IConfigFetcher, OptionsBase } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
 
-    fetchLogic(options: OptionsBase, _lastEtag: string, callback: (result: FetchResult) => void): void {
+    fetchLogic(options: OptionsBase, lastEtag: string, callback: (result: FetchResult) => void): void {
+        // If we are not running in browser set the If-None-Match header.
+        const headers = typeof window !== 'undefined' ? {} : {
+            'If-None-Match': (lastEtag) ? lastEtag : null
+        }
 
         const axiosConfig: AxiosRequestConfig = {
             method: 'get',
             timeout: options.requestTimeoutMs,
             url: options.getUrl(),
+            headers: headers
         };
 
         axios(axiosConfig)
