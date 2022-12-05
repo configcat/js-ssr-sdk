@@ -73,5 +73,10 @@
     "webpack": "^5.74.0",
     "webpack-auto-inject-version": "^1.2.2",
     "webpack-cli": "^4.10.0"
-  }
+  },
+  "overrides": {
+    "chokidar": "3.5.3",
+    "glob-parent": "5.1.2",
+    "loader-utils": "1.4.2"
+  }  
 }
