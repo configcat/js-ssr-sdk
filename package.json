@@ -52,6 +52,7 @@
     "@types/chai": "^4.3.3",
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.8.1",
+    "axios-mock-adapter": "^1.21.2",
     "chai": "^4.3.6",
     "core-js": "^3.24.1",
     "gulp": "^4.0.2",
