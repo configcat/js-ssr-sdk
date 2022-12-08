@@ -1,15 +1,22 @@
-module.exports = function(config) {   
+module.exports = function (config) {
     config.set({
-        frameworks: ["mocha", "chai", "karma-typescript"],
+        frameworks: ["mocha", "chai", "webpack"],
 
         files: [
-            "src/**/*.ts",
-            "test/**/*.ts"
+            "test/index.ts"
         ],
 
         preprocessors: {
-            "src/**/*.ts": ["karma-typescript"],
-            "test/**/*.ts": ["karma-typescript"]
+            "test/index.ts": ["webpack", "sourcemap"],
+        },
+
+        mime: {
+            "text/x-typescript": ["ts", "tsx"],
+        },
+
+        webpack: require("./webpack.config.karma"),
+        webpackMiddleware: {
+            noInfo: true
         },
 
         reporters: ["progress"],
