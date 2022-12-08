@@ -21,14 +21,16 @@
 import Vue from "vue";
 import Logo from "~/components/Logo.vue";
 import * as ConfigCat from "configcat-js-ssr";
+import { IConfigCatClient, LogLevel, PollingMode } from 'configcat-js-ssr';
 import { log } from "util";
 
-// Setting log level to 3 (= Info) to show detailed feature flag evaluation
-const logger = ConfigCat.createConsoleLogger(3);
+// Setting log level to Info to show detailed feature flag evaluation
+const logger = ConfigCat.createConsoleLogger(LogLevel.Info);
 
 // You can instantiate the client with different polling modes. See the Docs: https://configcat.com/docs/sdk-reference/js-ssr/#polling-modes
-const client = ConfigCat.createClientWithAutoPoll(
+const client = ConfigCat.getClient(
   "PKDVCLf-Hq-h-kCzMp-L7Q/HhOWfwVtZ0mb30i9wi17GQ",
+  PollingMode.AutoPoll,
   { pollIntervalSeconds: 5, logger: logger }
 );
 
@@ -56,7 +58,7 @@ export default Vue.extend({
       const userObject = {
         identifier: "#SOME-USER-ID#",
         email: this.user
-      };      
+      };
       client.getValue(
         "isPOCFeatureEnabled",
         false,
