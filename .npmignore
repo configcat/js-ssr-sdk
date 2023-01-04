@@ -6,7 +6,7 @@ tests/
 coverage/
 gulpfile.js
 package-lock.json
-tsconfig.json
+tsconfig*.json
 .gitignore
 .travis.yml
 *.tgz
@@ -15,8 +15,10 @@ tsconfig.json
 *.log
 media/
 test/
+DEPENDENCIES.md
 DEPLOY.md
-karma.conf.js
-webpack.config.js
+deploy.sh
+karma-*.conf.js
+webpack.config*.js
 .github/
 gulpfile.js
