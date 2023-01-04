@@ -1,50 +1,59 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { FetchResult, IConfigFetcher, OptionsBase } from "configcat-common";
+import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse } from 'axios';
+import { FetchError, IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
-
-    fetchLogic(options: OptionsBase, lastEtag: string, callback: (result: FetchResult) => void): void {
+    async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
         // If we are not running in browser set the If-None-Match header.
-        const headers = typeof window !== 'undefined' ? {} : {
-            'If-None-Match': (lastEtag) ? lastEtag : null
-        }
+        const headers: AxiosRequestHeaders = typeof window !== 'undefined' || !lastEtag
+            // NOTE: It's intentional that we don't specify the If-None-Match header.
+            // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
+            ? {}
+            : { 'If-None-Match': lastEtag };
 
-        const axiosConfig: AxiosRequestConfig = {
+        const axiosConfig: AxiosRequestConfig<string> = {
             method: 'get',
             timeout: options.requestTimeoutMs,
             url: options.getUrl(),
-            headers: headers
+            headers: headers,
+            responseType: "text",
+            transformResponse: data => data
         };
 
-        axios(axiosConfig)
-            .then(response => {
-                const eTag = response.headers.etag as string;
-                if (response.status === 200) {
-                    callback(FetchResult.success(JSON.stringify(response.data), eTag));
-                } else {
-                    options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${response.status} - ${response.statusText}`);
-                    options.logger.info("Double-check your SDK Key on https://app.configcat.com/sdkkey");
-                    callback(FetchResult.error());
+        let response: AxiosResponse<string> | undefined;
+        try {
+            response = await axios(axiosConfig);
+        }
+        catch (err) {
+            ({ response } = err as AxiosError<string>);
+            if (response) {
+                const { status: statusCode, statusText: reasonPhrase } = response;
+                return { statusCode, reasonPhrase };
+            }
+            else if ((err as AxiosError<string>).request) {
+                const { code, message } = err as AxiosError<string>;
+                switch (code) {
+                    case "ERR_CANCELED":
+                        throw new FetchError("abort");
+                    case "ECONNABORTED":
+                        // Axios ambiguously use ECONNABORTED instead of ETIMEDOUT, so we need this additional check to detect timeout
+                        // (see https://github.com/axios/axios/issues/1543#issuecomment-558166483)
+                        if (message.indexOf("timeout") >= 0) {
+                            throw new FetchError("timeout", options.requestTimeoutMs);
+                        }
+                        break;
                 }
-            })
-            .catch(error => {
-                if (error.response) {
-                    if (error.response.status === 304) {
-                        callback(FetchResult.notModified());
-                    } else {
-                        options.logger.error(`Failed to download feature flags & settings from ConfigCat. ${error.response.status} - ${error.response.statusText}`);
-                        options.logger.info("Double-check your SDK Key on https://app.configcat.com/sdkkey");
-                        callback(FetchResult.error());
-                    }
-                } else if (error.request) {
-                    options.logger.error('The request to Configcat was made but no response was received');
-                    callback(FetchResult.error());
-                } else {
-                    options.logger.error(`Something happened in setting up the request to ConfigCat: ${error.message}`);
-                    callback(FetchResult.error());
-                }
-            });
+                throw new FetchError("failure", err);
+            }
+
+            throw err;
+        }
+
+        const { status: statusCode, statusText: reasonPhrase } = response;
+        if (response.status === 200) {
+            const eTag = response.headers.etag as string;
+            return { statusCode, reasonPhrase, eTag, body: response.data };
+        }
+
+        return { statusCode, reasonPhrase };
     }
 }
-
-export default IConfigFetcher;

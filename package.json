@@ -4,12 +4,13 @@
   "description": "ConfigCat Feature Flags for Server Side Rendered apps like NuxtJS. Official ConfigCat SDK for Server Side Rendered to easily access feature flags.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "module": "lib/esm/index.js",
   "scripts": {
     "test": "karma start karma-chrome-coverage.conf.js",
     "test-firefox": "karma start karma-firefox.conf.js",
     "test-chrome": "karma start karma-chrome.conf.js",
     "test-chromium": "karma start karma-chromium.conf.js",
-    "build": "tsc && gulp tsc",
+    "build": "tsc -p tsconfig.build.cjs.json && tsc -p tsconfig.build.esm.json && gulp tsc",
     "buildPure": "webpack && gulp webpack",
     "prepare": "npm run build"
   },
@@ -43,12 +44,15 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "configcat-common": "^6.0.1"
+    "configcat-common": "^7.0.1",
+    "tslib": "^2.4.1"
   },
   "devDependencies": {
+    "@ephesoft/webpack.istanbul.loader": "^2.2.0",
     "@types/chai": "^4.3.3",
-    "@types/mocha": "^9.1.1",
-    "@types/node": "^18.6.5",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.8.1",
+    "axios-mock-adapter": "^1.21.2",
     "chai": "^4.3.6",
     "core-js": "^3.24.1",
     "gulp": "^4.0.2",
@@ -61,10 +65,11 @@
     "karma-coverage": "^2.2.0",
     "karma-firefox-launcher": "^2.1.2",
     "karma-mocha": "^2.0.1",
-    "karma-typescript": "^5.5.3",
-    "mocha": "^8.1.0",
+    "karma-sourcemap-loader": "^0.3.8",
+    "karma-webpack": "^5.0.0",
+    "mocha": "^10.0.0",
     "ts-loader": "^9.3.1",
-    "typescript": "^3.9.10",
+    "typescript": "^4.8.4",
     "webpack": "^5.74.0",
     "webpack-auto-inject-version": "^1.2.2",
     "webpack-cli": "^4.10.0"

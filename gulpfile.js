@@ -3,6 +3,7 @@ var replace = require('gulp-replace');
 var fs = require('fs');
 
 const OUT_DIST = 'dist';
+const OUT_ESM = 'lib/esm';
 const OUT_LEGACY = 'lib';
 
 function updateVersion(dst, file){
@@ -18,12 +19,16 @@ function updateVersion_dist(){
     return updateVersion(OUT_DIST, 'configcat.js');
 }
 
+function updateVersion_esm(){
+    return updateVersion(OUT_ESM, 'Version.js');
+}
+
 function updateVersion_legacy(){
     return updateVersion(OUT_LEGACY, 'Version.js');
 }
 
 exports.tsc = gulp.series(    
-    gulp.parallel(updateVersion_legacy));
+    gulp.parallel(updateVersion_esm, updateVersion_legacy));
 
 exports.webpack = gulp.series(    
     gulp.parallel(updateVersion_dist));
