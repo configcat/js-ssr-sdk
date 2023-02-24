@@ -35,7 +35,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request timed out.")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request timed out.")));
     }
     finally {
       axiosMock.restore();
@@ -46,7 +46,7 @@ describe("HTTP tests", () => {
     const axiosMock = new AxiosMockAdapter(axios);
 
     try {
-      axiosMock.onGet().reply(async () => {
+      axiosMock.onGet().reply(() => {
         return [404, "Not Found"];
       });
 
@@ -63,7 +63,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Double-check your SDK Key")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Double-check your SDK Key")));
     }
     finally {
       axiosMock.restore();
@@ -74,7 +74,7 @@ describe("HTTP tests", () => {
     const axiosMock = new AxiosMockAdapter(axios);
 
     try {
-      axiosMock.onGet().reply(async () => {
+      axiosMock.onGet().reply(() => {
         return [502, "Bad Gateway"];
       });
 
@@ -91,7 +91,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Unexpected HTTP response was received:")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Unexpected HTTP response was received:")));
     }
     finally {
       axiosMock.restore();
@@ -104,7 +104,7 @@ describe("HTTP tests", () => {
     const axiosMock = new AxiosMockAdapter(axios);
 
     try {
-      axiosMock.onGet().reply(async config => {
+      axiosMock.onGet().reply(config => {
         throw new AxiosError(errorMessage, "ECONNABORTED", config, {}, void 0);
       });
 
@@ -123,7 +123,7 @@ describe("HTTP tests", () => {
 
       console.log(logger.messages);
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request failed due to a network or protocol error.")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request failed due to a network or protocol error.")));
     }
     finally {
       axiosMock.restore();
