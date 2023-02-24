@@ -69,7 +69,7 @@ describe("HTTP tests", () => {
       axiosMock.restore();
     }
   });
-    
+
   it("Unexpected status code", async () => {
     const axiosMock = new AxiosMockAdapter(axios);
 
@@ -115,12 +115,12 @@ describe("HTTP tests", () => {
         baseUrl,
         logger
       });
-  
+
       await client.forceRefreshAsync();
-  
+
       const defaultValue = "NOT_CAT"
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
-  
+
       console.log(logger.messages);
 
       assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request failed due to a network or protocol error.")));
