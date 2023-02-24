@@ -2,58 +2,58 @@ import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosRespon
 import { FetchError, IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
-    async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
-        // If we are not running in browser set the If-None-Match header.
-        const headers: AxiosRequestHeaders = typeof window !== 'undefined' || !lastEtag
-            // NOTE: It's intentional that we don't specify the If-None-Match header.
-            // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
-            ? {}
-            : { 'If-None-Match': lastEtag };
+  async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
+    // If we are not running in browser set the If-None-Match header.
+    const headers: AxiosRequestHeaders = typeof window !== 'undefined' || !lastEtag
+    // NOTE: It's intentional that we don't specify the If-None-Match header.
+    // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
+      ? {}
+      : { 'If-None-Match': lastEtag };
 
-        const axiosConfig: AxiosRequestConfig<string> = {
-            method: 'get',
-            timeout: options.requestTimeoutMs,
-            url: options.getUrl(),
-            headers: headers,
-            responseType: "text",
-            transformResponse: data => data
-        };
+    const axiosConfig: AxiosRequestConfig<string> = {
+      method: 'get',
+      timeout: options.requestTimeoutMs,
+      url: options.getUrl(),
+      headers: headers,
+      responseType: "text",
+      transformResponse: data => data
+    };
 
-        let response: AxiosResponse<string> | undefined;
-        try {
-            response = await axios(axiosConfig);
-        }
-        catch (err) {
-            ({ response } = err as AxiosError<string>);
-            if (response) {
-                const { status: statusCode, statusText: reasonPhrase } = response;
-                return { statusCode, reasonPhrase };
-            }
-            else if ((err as AxiosError<string>).request) {
-                const { code, message } = err as AxiosError<string>;
-                switch (code) {
-                    case "ERR_CANCELED":
-                        throw new FetchError("abort");
-                    case "ECONNABORTED":
-                        // Axios ambiguously use ECONNABORTED instead of ETIMEDOUT, so we need this additional check to detect timeout
-                        // (see https://github.com/axios/axios/issues/1543#issuecomment-558166483)
-                        if (message.indexOf("timeout") >= 0) {
-                            throw new FetchError("timeout", options.requestTimeoutMs);
-                        }
-                        break;
-                }
-                throw new FetchError("failure", err);
-            }
-
-            throw err;
-        }
-
-        const { status: statusCode, statusText: reasonPhrase } = response;
-        if (response.status === 200) {
-            const eTag = response.headers.etag as string;
-            return { statusCode, reasonPhrase, eTag, body: response.data };
-        }
-
-        return { statusCode, reasonPhrase };
+    let response: AxiosResponse<string> | undefined;
+    try {
+      response = await axios(axiosConfig);
     }
+    catch (err) {
+      ({ response } = err as AxiosError<string>);
+      if (response) {
+        const { status: statusCode, statusText: reasonPhrase } = response;
+        return { statusCode, reasonPhrase };
+      }
+      else if ((err as AxiosError<string>).request) {
+        const { code, message } = err as AxiosError<string>;
+        switch (code) {
+          case "ERR_CANCELED":
+            throw new FetchError("abort");
+          case "ECONNABORTED":
+            // Axios ambiguously use ECONNABORTED instead of ETIMEDOUT, so we need this additional check to detect timeout
+            // (see https://github.com/axios/axios/issues/1543#issuecomment-558166483)
+            if (message.indexOf("timeout") >= 0) {
+              throw new FetchError("timeout", options.requestTimeoutMs);
+            }
+            break;
+        }
+        throw new FetchError("failure", err);
+      }
+
+      throw err;
+    }
+
+    const { status: statusCode, statusText: reasonPhrase } = response;
+    if (response.status === 200) {
+      const eTag = response.headers.etag as string;
+      return { statusCode, reasonPhrase, eTag, body: response.data };
+    }
+
+    return { statusCode, reasonPhrase };
+  }
 }
