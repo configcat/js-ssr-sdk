@@ -41,6 +41,8 @@ export class HttpConfigFetcher implements IConfigFetcher {
               throw new FetchError("timeout", options.requestTimeoutMs);
             }
             break;
+          default:
+            break;
         }
         throw new FetchError("failure", err);
       }
