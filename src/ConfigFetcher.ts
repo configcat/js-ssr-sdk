@@ -1,17 +1,17 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse } from "axios";
 import { FetchError, IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
   async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
     // If we are not running in browser set the If-None-Match header.
-    const headers: AxiosRequestHeaders = typeof window !== 'undefined' || !lastEtag
+    const headers: AxiosRequestHeaders = typeof window !== "undefined" || !lastEtag
     // NOTE: It's intentional that we don't specify the If-None-Match header.
     // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
       ? {}
-      : { 'If-None-Match': lastEtag };
+      : { "If-None-Match": lastEtag };
 
     const axiosConfig: AxiosRequestConfig<string> = {
-      method: 'get',
+      method: "get",
       timeout: options.requestTimeoutMs,
       url: options.getUrl(),
       headers: headers,
