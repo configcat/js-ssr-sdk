@@ -1,5 +1,9 @@
 {
-    "cSpell.words": [
-        "nuxtjs"
-    ]
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "typescript"
+  ],
+  "cSpell.words": [
+    "nuxtjs"
+  ]
 }
