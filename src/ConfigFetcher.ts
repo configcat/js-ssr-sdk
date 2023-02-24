@@ -1,5 +1,7 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse } from "axios";
-import { FetchError, IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
+import type { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse } from "axios";
+import axios from "axios";
+import type { IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
+import { FetchError } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
   async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
