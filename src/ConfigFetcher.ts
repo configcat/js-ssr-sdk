@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig, AxiosRequestHeaders, AxiosError, AxiosResponse } from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from "axios";
 import axios from "axios";
 import type { IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
 import { FetchError } from "configcat-common";

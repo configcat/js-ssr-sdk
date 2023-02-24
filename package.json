@@ -47,6 +47,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "configcat-common": "^7.0.1",
+    "eslint-plugin-import": "^2.27.5",
     "tslib": "^2.4.1"
   },
   "devDependencies": {

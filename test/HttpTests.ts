@@ -1,9 +1,9 @@
-import { assert } from "chai";
-import * as configcatClient from "../src/index";
 import axios, { AxiosError } from "axios";
 import AxiosMockAdapter, { } from "axios-mock-adapter";
-import { FakeLogger } from "./helpers/fakes";
+import { assert } from "chai";
+import * as configcatClient from "../src/index";
 import { LogLevel } from "../src/index";
+import { FakeLogger } from "./helpers/fakes";
 
 describe("HTTP tests", () => {
   const sdkKey = "PKDVCLf-Hq-h-kCzMp-L7Q/psuH7BGHoUmdONrzzUOY7A";
