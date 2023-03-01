@@ -1,4 +1,3 @@
-
 module.exports = {
   mode: "production",
   entry: [
@@ -19,10 +18,11 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [{
-          loader: 'ts-loader',
+          loader: "ts-loader",
           options: {
             configFile: "tsconfig.build.esm.json"
-          }}]
+          }
+        }]
       }
     ]
   }
