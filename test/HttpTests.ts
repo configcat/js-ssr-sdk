@@ -1,9 +1,9 @@
 import axios, { AxiosError } from "axios";
 import AxiosMockAdapter, { } from "axios-mock-adapter";
 import { assert } from "chai";
-import * as configcatClient from "../src/index";
 import { LogLevel } from "../src/index";
 import { FakeLogger } from "./helpers/fakes";
+import * as utils from "./helpers/utils";
 
 describe("HTTP tests", () => {
   const sdkKey = "PKDVCLf-Hq-h-kCzMp-L7Q/psuH7BGHoUmdONrzzUOY7A";
@@ -22,7 +22,7 @@ describe("HTTP tests", () => {
 
       const logger = new FakeLogger();
 
-      const client = configcatClient.createClientWithManualPoll(sdkKey, {
+      const client = utils.createClientWithManualPoll(sdkKey, {
         requestTimeoutMs,
         baseUrl,
         logger
@@ -35,7 +35,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request timed out.")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request timed out while trying to fetch config JSON.")));
     }
     finally {
       axiosMock.restore();
@@ -52,7 +52,7 @@ describe("HTTP tests", () => {
 
       const logger = new FakeLogger();
 
-      const client = configcatClient.createClientWithManualPoll(sdkKey, {
+      const client = utils.createClientWithManualPoll(sdkKey, {
         requestTimeoutMs: 1000,
         baseUrl,
         logger
@@ -63,7 +63,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Double-check your SDK Key")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Your SDK Key seems to be wrong.")));
     }
     finally {
       axiosMock.restore();
@@ -80,7 +80,7 @@ describe("HTTP tests", () => {
 
       const logger = new FakeLogger();
 
-      const client = configcatClient.createClientWithManualPoll(sdkKey, {
+      const client = utils.createClientWithManualPoll(sdkKey, {
         requestTimeoutMs: 1000,
         baseUrl,
         logger
@@ -91,7 +91,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Unexpected HTTP response was received:")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Unexpected HTTP response was received while trying to fetch config JSON:")));
     }
     finally {
       axiosMock.restore();
@@ -110,7 +110,7 @@ describe("HTTP tests", () => {
 
       const logger = new FakeLogger();
 
-      const client = configcatClient.createClientWithManualPoll(sdkKey, {
+      const client = utils.createClientWithManualPoll(sdkKey, {
         requestTimeoutMs: 1000,
         baseUrl,
         logger
@@ -123,7 +123,7 @@ describe("HTTP tests", () => {
 
       console.log(logger.messages);
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request failed due to a network or protocol error.")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Unexpected error occurred while trying to fetch config JSON.")));
     }
     finally {
       axiosMock.restore();
