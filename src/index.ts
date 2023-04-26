@@ -19,7 +19,7 @@ export function getClient<TMode extends PollingMode | undefined>(sdkKey: string,
   return configcatcommon.getClient(sdkKey, pollingMode ?? PollingMode.AutoPoll, options,
     {
       configFetcher: new HttpConfigFetcher(),
-      cache: new InMemoryCache(),
+      cache: new LocalStorageCache(),
       sdkType: "ConfigCat-JS-SSR",
       sdkVersion: CONFIGCAT_SDK_VERSION
     });
