@@ -49,7 +49,7 @@ export default Vue.extend({
   },
   methods: {
     checkAwesome() {
-      client.getValue("isAwesomeFeatureEnabled", false, value => {
+      client.getValueAsync("isAwesomeFeatureEnabled", false).then(value => {
         this.isAwesomeFeatureEnabled = value;
       });
     },
@@ -59,14 +59,9 @@ export default Vue.extend({
         identifier: "#SOME-USER-ID#",
         email: this.user
       };
-      client.getValue(
-        "isPOCFeatureEnabled",
-        false,
-        value => {
-          this.isPOCFeatureEnabled = value;
-        },
-        userObject
-      );
+      client.getValueAsync("isPOCFeatureEnabled", false, userObject).then(value => {
+        this.isPOCFeatureEnabled = value;
+      });
     }
   }
 });
