@@ -46,7 +46,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "configcat-common": "^8.0.2",
+    "configcat-common": "^8.1.0",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
