@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import AxiosMockAdapter, { } from "axios-mock-adapter";
 import { assert } from "chai";
 import { LogLevel } from "../src/index";
@@ -17,7 +17,7 @@ describe("HTTP tests", () => {
     try {
       axiosMock.onGet().reply(async config => {
         await new Promise<any>(resolve => setTimeout(resolve, requestTimeoutMs));
-        throw new AxiosError(`timeout of ${config.timeout}ms exceeded`, "ECONNABORTED", config, {}, void 0);
+        throw new AxiosError(`timeout of ${config.timeout}ms exceeded`, "ECONNABORTED", config as InternalAxiosRequestConfig, {}, void 0);
       });
 
       const logger = new FakeLogger();
@@ -105,7 +105,7 @@ describe("HTTP tests", () => {
 
     try {
       axiosMock.onGet().reply(config => {
-        throw new AxiosError(errorMessage, "ECONNABORTED", config, {}, void 0);
+        throw new AxiosError(errorMessage, "ECONNABORTED", config as InternalAxiosRequestConfig, {}, void 0);
       });
 
       const logger = new FakeLogger();

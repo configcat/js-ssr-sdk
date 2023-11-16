@@ -6,7 +6,7 @@ import { FetchError } from "configcat-common";
 export class HttpConfigFetcher implements IConfigFetcher {
   async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
     // If we are not running in browser set the If-None-Match header.
-    const headers: AxiosRequestHeaders = typeof window !== "undefined" || !lastEtag
+    const headers: {} = typeof window !== "undefined" || !lastEtag
     // NOTE: It's intentional that we don't specify the If-None-Match header.
     // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
       ? {}
@@ -52,10 +52,10 @@ export class HttpConfigFetcher implements IConfigFetcher {
       throw err;
     }
 
-    const { status: statusCode, statusText: reasonPhrase } = response;
-    if (response.status === 200) {
-      const eTag = response.headers.etag as string;
-      return { statusCode, reasonPhrase, eTag, body: response.data };
+    const { status: statusCode, statusText: reasonPhrase } = response!;
+    if (response!.status === 200) {
+      const eTag = response!.headers.etag as string;
+      return { statusCode, reasonPhrase, eTag, body: response!.data };
     }
 
     return { statusCode, reasonPhrase };
