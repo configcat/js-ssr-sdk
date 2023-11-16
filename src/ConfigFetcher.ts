@@ -1,4 +1,4 @@
-import type { AxiosError, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import axios from "axios";
 import type { IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
 import { FetchError } from "configcat-common";
@@ -53,7 +53,7 @@ export class HttpConfigFetcher implements IConfigFetcher {
     }
 
     const { status: statusCode, statusText: reasonPhrase } = response!;
-    if (response!.status === 200) {
+    if (statusCode === 200) {
       const eTag = response!.headers.etag as string;
       return { statusCode, reasonPhrase, eTag, body: response!.data };
     }
