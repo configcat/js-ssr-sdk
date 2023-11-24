@@ -21,7 +21,7 @@
 import Vue from "vue";
 import Logo from "~/components/Logo.vue";
 import * as ConfigCat from "configcat-js-ssr";
-import { IConfigCatClient, LogLevel, PollingMode } from 'configcat-js-ssr';
+import { LogLevel, PollingMode, User } from 'configcat-js-ssr';
 import { log } from "util";
 
 // Setting log level to Info to show detailed feature flag evaluation
@@ -55,10 +55,7 @@ export default Vue.extend({
     },
     checkPOC() {
       // Read more about the User Object: https://configcat.com/docs/sdk-reference/node/#user-object
-      const userObject = {
-        identifier: "#SOME-USER-ID#",
-        email: this.user
-      };
+      const userObject = new User("#SOME-USER-ID#", this.user);
       client.getValueAsync("isPOCFeatureEnabled", false, userObject).then(value => {
         this.isPOCFeatureEnabled = value;
       });
