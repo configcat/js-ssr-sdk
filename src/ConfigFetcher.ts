@@ -52,6 +52,9 @@ export class HttpConfigFetcher implements IConfigFetcher {
       throw err;
     }
 
+    console.log('req: ' + response?.request);
+    console.log('req head: ' + response?.request?.header);
+    console.log('resp head: ' + response?.headers);
     const { status: statusCode, statusText: reasonPhrase } = response!;
     if (statusCode === 200) {
       const eTag = response!.headers.etag as string;
