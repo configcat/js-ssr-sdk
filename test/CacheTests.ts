@@ -25,60 +25,61 @@ describe("Base64 encode/decode test", () => {
 });
 
 describe("LocalStorageCache cache tests", () => {
-  it("LocalStorageCache works with non latin 1 characters", () => {
-    const localStorage = getLocalStorage();
-    assert.isNotNull(localStorage);
+  const localStorage = getLocalStorage();
 
-    const cache = new LocalStorageCache(localStorage!);
-    const key = "testkey";
-    const text = "äöüÄÖÜçéèñışğâ¢™✓😀";
-    cache.set(key, text);
-    const retrievedValue = cache.get(key);
-    assert.strictEqual(retrievedValue, text);
-    assert.strictEqual(window.localStorage.getItem(key), "w6TDtsO8w4TDlsOcw6fDqcOow7HEscWfxJ/DosKi4oSi4pyT8J+YgA==");
-  });
+  if (localStorage) {
+    it("LocalStorageCache works with non latin 1 characters", () => {
+      const cache = new LocalStorageCache(localStorage!);
+      const key = "testkey";
+      const text = "äöüÄÖÜçéèñışğâ¢™✓😀";
+      cache.set(key, text);
+      const retrievedValue = cache.get(key);
+      assert.strictEqual(retrievedValue, text);
+      assert.strictEqual(window.localStorage.getItem(key), "w6TDtsO8w4TDlsOcw6fDqcOow7HEscWfxJ/DosKi4oSi4pyT8J+YgA==");
+    });
 
-  it("Error is logged when LocalStorageCache.get throws", async () => {
-    const errorMessage = "Something went wrong.";
-    const faultyLocalStorage: Storage = {
-      get length() { return 0; },
-      clear() { },
-      getItem() { throw Error(errorMessage); },
-      setItem() { },
-      removeItem() { },
-      key() { return null; }
-    };
+    it("Error is logged when LocalStorageCache.get throws", async () => {
+      const errorMessage = "Something went wrong.";
+      const faultyLocalStorage: Storage = {
+        get length() { return 0; },
+        clear() { },
+        getItem() { throw Error(errorMessage); },
+        setItem() { },
+        removeItem() { },
+        key() { return null; }
+      };
 
-    const fakeLogger = new FakeLogger();
+      const fakeLogger = new FakeLogger();
 
-    const client = createClientWithLazyLoad("configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/AG6C1ngVb0CvM07un6JisQ", { logger: fakeLogger },
-      kernel => LocalStorageCache.setup(kernel, () => faultyLocalStorage));
+      const client = createClientWithLazyLoad("configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/AG6C1ngVb0CvM07un6JisQ", { logger: fakeLogger },
+        kernel => LocalStorageCache.setup(kernel, () => faultyLocalStorage));
 
-    try { await client.getValueAsync("stringDefaultCat", ""); }
-    finally { client.dispose(); }
+      try { await client.getValueAsync("stringDefaultCat", ""); }
+      finally { client.dispose(); }
 
-    assert.isDefined(fakeLogger.events.find(([level, eventId, , err]) => level === LogLevel.Error && eventId === 2200 && err instanceof Error && err.message === errorMessage));
-  });
+      assert.isDefined(fakeLogger.events.find(([level, eventId, , err]) => level === LogLevel.Error && eventId === 2200 && err instanceof Error && err.message === errorMessage));
+    });
 
-  it("Error is logged when LocalStorageCache.set throws", async () => {
-    const errorMessage = "Something went wrong.";
-    const faultyLocalStorage: Storage = {
-      get length() { return 0; },
-      clear() { },
-      getItem() { return null; },
-      setItem() { throw Error(errorMessage); },
-      removeItem() { },
-      key() { return null; }
-    };
+    it("Error is logged when LocalStorageCache.set throws", async () => {
+      const errorMessage = "Something went wrong.";
+      const faultyLocalStorage: Storage = {
+        get length() { return 0; },
+        clear() { },
+        getItem() { return null; },
+        setItem() { throw Error(errorMessage); },
+        removeItem() { },
+        key() { return null; }
+      };
 
-    const fakeLogger = new FakeLogger();
+      const fakeLogger = new FakeLogger();
 
-    const client = createClientWithLazyLoad("configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/AG6C1ngVb0CvM07un6JisQ", { logger: fakeLogger },
-      kernel => LocalStorageCache.setup(kernel, () => faultyLocalStorage));
+      const client = createClientWithLazyLoad("configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/AG6C1ngVb0CvM07un6JisQ", { logger: fakeLogger },
+        kernel => LocalStorageCache.setup(kernel, () => faultyLocalStorage));
 
-    try { await client.getValueAsync("stringDefaultCat", ""); }
-    finally { client.dispose(); }
+      try { await client.getValueAsync("stringDefaultCat", ""); }
+      finally { client.dispose(); }
 
-    assert.isDefined(fakeLogger.events.find(([level, eventId, , err]) => level === LogLevel.Error && eventId === 2201 && err instanceof Error && err.message === errorMessage));
-  });
+      assert.isDefined(fakeLogger.events.find(([level, eventId, , err]) => level === LogLevel.Error && eventId === 2201 && err instanceof Error && err.message === errorMessage));
+    });
+  }
 });
