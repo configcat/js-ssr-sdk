@@ -10,7 +10,7 @@
     "test-firefox": "karma start karma-firefox.conf.js",
     "test-chrome": "karma start karma-chrome.conf.js",
     "test-chromium": "karma start karma-chromium.conf.js",
-    "test-node": "cross-env NODE_EXTRA_CA_CERTS=./test/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.json mocha --require ts-node/register 'test/**/*.ts --ignore test/index.ts' --exit --timeout 30000",
+    "test-node": "cross-env NODE_EXTRA_CA_CERTS=./test/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.json mocha --require ts-node/register 'test/**/*.ts' --ignore test/index.ts --exit --timeout 30000",
     "build": "tsc -p tsconfig.build.cjs.json && tsc -p tsconfig.build.esm.json && gulp tsc",
     "buildPure": "webpack && gulp webpack",
     "prepare": "npm run build",
