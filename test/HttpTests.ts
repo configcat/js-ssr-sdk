@@ -35,7 +35,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request timed out while trying to fetch config JSON.")));
+      assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Request timed out while trying to fetch config JSON.")));
     }
     finally {
       axiosMock.restore();
@@ -63,7 +63,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Your SDK Key seems to be wrong.")));
+      assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Your SDK Key seems to be wrong.")));
     }
     finally {
       axiosMock.restore();
@@ -91,7 +91,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Unexpected HTTP response was received while trying to fetch config JSON:")));
+      assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Unexpected HTTP response was received while trying to fetch config JSON:")));
     }
     finally {
       axiosMock.restore();
@@ -121,9 +121,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      console.log(logger.messages);
-
-      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Unexpected error occurred while trying to fetch config JSON.")));
+      assert.isDefined(logger.events.find(([level, , msg]) => level === LogLevel.Error && msg.toString().startsWith("Unexpected error occurred while trying to fetch config JSON.")));
     }
     finally {
       axiosMock.restore();
