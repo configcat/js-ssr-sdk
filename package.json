@@ -1,6 +1,6 @@
 {
   "name": "configcat-js-ssr",
-  "version": "8.1.0",
+  "version": "8.2.0",
   "description": "ConfigCat Feature Flags for Server Side Rendered apps like NuxtJS. Official ConfigCat SDK for Server Side Rendered to easily access feature flags.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -10,6 +10,7 @@
     "test-firefox": "karma start karma-firefox.conf.js",
     "test-chrome": "karma start karma-chrome.conf.js",
     "test-chromium": "karma start karma-chromium.conf.js",
+    "test-node": "cross-env NODE_EXTRA_CA_CERTS=./test/cert/testCA.pem TS_NODE_PROJECT=./tsconfig.mocha.json mocha --require ts-node/register 'test/**/*.ts' --ignore test/index.ts --exit --timeout 30000",
     "build": "tsc -p tsconfig.build.cjs.json && tsc -p tsconfig.build.esm.json && gulp tsc",
     "buildPure": "webpack && gulp webpack",
     "prepare": "npm run build",
@@ -46,7 +47,7 @@
   },
   "dependencies": {
     "axios": "^1.6.2",
-    "configcat-common": "^9.0.0",
+    "configcat-common": "^9.1.0",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
@@ -59,6 +60,7 @@
     "axios-mock-adapter": "^1.21.2",
     "chai": "^4.3.7",
     "core-js": "^3.24.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
     "eslint-plugin-import": "^2.27.5",
     "gulp": "^4.0.2",
@@ -75,6 +77,7 @@
     "karma-webpack": "^5.0.0",
     "mocha": "^10.2.0",
     "ts-loader": "^9.3.1",
+    "ts-node": "^10.9.2",
     "typescript": "^4.8.4",
     "webpack": "^5.77.0",
     "webpack-auto-inject-version": "^1.2.2",

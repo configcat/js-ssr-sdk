@@ -1,22 +1,29 @@
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import type { AxiosError, AxiosRequestConfig, AxiosResponse, RawAxiosRequestHeaders } from "axios";
 import axios from "axios";
 import type { IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
 import { FetchError } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
   async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
-    // If we are not running in browser set the If-None-Match header.
-    const headers: {} = typeof window !== "undefined" || !lastEtag
-    // NOTE: It's intentional that we don't specify the If-None-Match header.
-    // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
-      ? {}
-      : { "If-None-Match": lastEtag };
+    let url = options.getUrl();
+    let headers: RawAxiosRequestHeaders | undefined;
+    if (lastEtag) {
+      if (typeof window !== "undefined") {
+        // NOTE: If we are running in browser, it's intentional that we don't specify the If-None-Match header.
+        // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
+        // In case the browser doesn't handle it, we are transforming the ccetag query parameter to the If-None-Match header in our CDN provider.
+        url += "&ccetag=" + lastEtag;
+      }
+      else {
+        headers = { "If-None-Match": lastEtag };
+      }
+    }
 
     const axiosConfig: AxiosRequestConfig<string> = {
       method: "get",
       timeout: options.requestTimeoutMs,
-      url: options.getUrl(),
-      headers: headers,
+      url,
+      headers,
       responseType: "text",
       transformResponse: data => data
     };
