@@ -1,6 +1,6 @@
 {
   "name": "configcat-js-ssr",
-  "version": "8.4.4",
+  "version": "8.4.5",
   "description": "ConfigCat Feature Flags for Server Side Rendered apps like NuxtJS. Official ConfigCat SDK for Server Side Rendered to easily access feature flags.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -46,7 +46,7 @@
     "url": "https://github.com/configcat/nuxt-sdk/issues"
   },
   "dependencies": {
-    "axios": "^1.7.8",
+    "axios": "^1.8.4",
     "configcat-common": "9.3.1",
     "tslib": "^2.4.1"
   },
