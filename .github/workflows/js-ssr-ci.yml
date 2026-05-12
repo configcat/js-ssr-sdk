@@ -29,7 +29,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install codecov -g
+          mkdir -p coverage
+          curl -s -o coverage/codecov https://uploader.codecov.io/latest/linux/codecov
+          chmod +x coverage/codecov
           npm install
 
       - name: Build
@@ -38,10 +40,10 @@ jobs:
           npm run buildPure
 
       - name: Coverage
-        run: npm run test
+        run: CHROME_BIN=$(which chrome) npm run test
 
       - name: Upload coverage report
-        run: codecov
+        run: coverage/codecov -t ${CODECOV_TOKEN}
 
       - name: 📦Pack
         run: npm pack
