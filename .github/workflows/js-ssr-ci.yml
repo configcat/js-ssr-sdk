@@ -20,7 +20,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Setup chrome
         uses: browser-actions/setup-chrome@latest
@@ -62,7 +62,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Setup chrome
         uses: browser-actions/setup-chrome@latest
@@ -92,7 +92,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Setup chrome
         id: setup-chrome
@@ -124,7 +124,7 @@ jobs:
 
       - uses: actions/setup-node@v5
         with:
-          node-version: 14
+          node-version: 18
 
       - name: Setup firefox
         uses: browser-actions/setup-firefox@latest
